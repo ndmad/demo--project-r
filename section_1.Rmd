@@ -1,0 +1,94 @@
+---
+title: "Section 1"
+author: "Mamadou NDIAYE"
+date: "2023-07-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Section 1 : Installation de l'environnemnt de travail
+
+```{r}
+library(ggplot2)
+library(ggalt)
+library(ggExtra)
+library(ggcorrplot)
+library(plotly)
+library(quantmod)
+library(ggthemes)
+library(waffle)
+library(highcharter)
+library(dplyr)
+library(ggfortify)
+```
+
+# Section 2 : Création des graphiques de corrélation
+
+## Nuage de points
+
+```{r}
+theme_set(theme_bw())
+data("midwest", package = "ggplot2")
+head(midwest)
+```
+
+```{r}
+gg <- ggplot(data = midwest, aes(x = area, y = poptotal)) +
+  geom_point()
+gg
+```
+
+
+
+```{r}
+gg <- ggplot(data = midwest, aes(x = area, y = poptotal)) +
+  geom_point(aes(col = state, size = popdensity))
+gg
+```
+
+
+```{r}
+gg <- ggplot(data = midwest, aes(x = area, y = poptotal)) +
+  geom_point(aes(col = state, size = popdensity)) +
+  geom_smooth(method = "lm", se=T)
+gg
+```
+
+```{r}
+gg <- ggplot(data = midwest, aes(x = area, y = poptotal)) +
+  geom_point(aes(col = state, size = popdensity)) +
+  geom_smooth(method = "lm", se = F) +
+  xlim(c(0, 0.1)) +
+  ylim(c(0, 500000)) +
+  labs(subtitle = "Surface vs Population",
+       y = "Population totale",
+       x = "Surface",
+       title = "Nuage de points de la population en fonction de la surface du comté",
+       caption = "Source: midwest dataset")
+gg
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
