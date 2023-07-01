@@ -50,14 +50,14 @@ gg
 ```
 
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 gg <- ggplot(data = midwest, aes(x = area, y = poptotal)) +
   geom_point(aes(col = state, size = popdensity)) +
   geom_smooth(method = "lm", se=T)
 gg
 ```
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 gg <- ggplot(data = midwest, aes(x = area, y = poptotal)) +
   geom_point(aes(col = state, size = popdensity)) +
   geom_smooth(method = "lm", se = F) +
@@ -83,11 +83,58 @@ midwest_select <- midwest[midwest$poptotal > 350000 &
 midwest_select
 ```
 
+```{r message=FALSE, warning=FALSE}
+g2 <- ggplot(data = midwest, aes(x = area, y = poptotal)) +
+  geom_point(aes(col = state, size = popdensity)) +
+  geom_smooth(method = "lm", se = F) +
+  geom_encircle(aes(x = area, y = poptotal), data = midwest_select, color = 'red', size = 2, expand = 0.08) +
+  xlim(c(0, 0.1)) +
+  ylim(c(0, 500000)) +
+  labs(subtitle = "Surface vs Population",
+       y = "Population totale",
+       x = "Surface",
+       title = "Nuage de points de la population en fonction de la surface du comté",
+       caption = "Source: midwest dataset")
+g2
+```
 
 
+## Jitter plot : Nuage de points spécial
+
+```{r}
+data(mpg, package = "ggplot2")
+head(mpg)
+```
 
 
+```{r, message=FALSE, warning=FALSE}
+g <- ggplot(data = mpg, aes(x = cty, y = hwy))
 
+g + geom_point() +
+  geom_smooth(method = "lm") +
+  labs(subtitle = "cty vs hwy",
+       title = "Nuage de points avec des points qui se chevauchent",
+       caption = "Source: mpg dataset")
+```
+
+```{r, message=FALSE, warning=FALSE}
+theme_set(theme_light())
+g <- g + geom_jitter(width = 0.5, size = 1) +
+  geom_smooth(method = "lm") +
+  labs(subtitle = "cty vs hwy",
+       title = "Kilométrage autoroute en fcontion ville",
+       caption = "Source: mpg dataset")
+g
+```
+
+```{r, message = FALSE, warning=FALSE}
+ggplotly(g)
+```
+
+
+## Graphique de décompte (*Counts charts*)
+
+## Graphique à buile (*Bubble plot*)
 
 
 
