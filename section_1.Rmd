@@ -134,12 +134,43 @@ ggplotly(g)
 
 ## Graphique de décompte (*Counts charts*)
 
+```{r}
+g <- ggplot(mpg, aes(cty, hwy))
+
+g <- g+geom_count(col = 'tomato3', show.legend = F) +
+  labs(subtitle = 'cty vs hwy',
+       title = "Kilométrage autoroute en fonction de kilométrage ville count charts")
+g
+```
+
+```{r}
+ggplotly(g)
+```
+
+
 ## Graphique à buile (*Bubble plot*)
 
+```{r}
+mpg_select <- mpg[mpg$manufacturer %in% c("audi", "ford","honda", "hyunda"), ]
+print(unique(mpg_select$manufacturer))
+head(mpg_select)
+```
 
 
+```{r, message=FALSE, warning=FALSE}
+g <- ggplot(mpg_select, aes(displ, cty)) +
+  labs(subtitle = "displ vs cty",
+       title = "kilométrage en ville en fonction de la capacité du moteur")
+
+g <- g + geom_jitter(aes(col = manufacturer, size = hwy)) +
+  geom_smooth(aes(col = manufacturer, method = "lm", se = F))
+g
+```
 
 
+```{r}
+ggplotly(g)
+```
 
 
 
